@@ -5,12 +5,18 @@ if [[ -n ${COLLECTIVEOS_ONLINE_INSTALL:-} ]]; then
   # Configure pacman
   sudo cp -f ~/.local/share/collectiveos/default/pacman/pacman.conf /etc/pacman.conf
   sudo cp -f ~/.local/share/collectiveos/default/pacman/mirrorlist /etc/pacman.d/mirrorlist
+  sudo cp -f ~/.local/share/collectiveos/default/pacman/cachyos-mirrorlist /etc/pacman.d/cachyos-mirrorlist
 
   sudo pacman-key --recv-keys 40DFB630FF42BCFFB047046CF0134EE680CAC571 --keyserver keys.openpgp.org
   sudo pacman-key --lsign-key 40DFB630FF42BCFFB047046CF0134EE680CAC571
 
   curl -s https://repo.cider.sh/ARCH-GPG-KEY | sudo pacman-key --add -
   sudo pacman-key --lsign-key A0CD6B993438E22634450CDD2A236C3F42A61682
+
+  if ! sudo pacman-key --recv-keys F3B607488DB35A47; then
+    curl -fsSL https://mirror.cachyos.org/cachyos.gpg | sudo pacman-key --add -
+  fi
+  sudo pacman-key --lsign-key F3B607488DB35A47
 
   sudo pacman -Sy
   sudo pacman -S --noconfirm --needed collectiveos-keyring
