@@ -7,16 +7,19 @@ asdcontrol
 avahi
 bash-completion
 bat
+blender
 blueberry
 brightnessctl
 btop
 cargo
 cider
 clang
+code
 cups
 cups-browsed
 cups-filters
 cups-pdf
+davinci-resolve
 docker
 docker-buildx
 docker-compose
@@ -33,9 +36,11 @@ ffmpegthumbnailer
 fontconfig
 fzf
 github-cli
+gimp
 gnome-calculator
 gnome-keyring
 gnome-themes-extra
+godot
 grim
 gpu-screen-recorder
 gum
@@ -51,6 +56,7 @@ hyprsunset
 imagemagick
 impala
 imv
+inkscape
 inetutils
 inxi
 iwd
@@ -64,6 +70,7 @@ libsecret
 libyaml
 libqalculate
 libreoffice
+libresprite
 llvm
 localsend
 luarocks
@@ -71,6 +78,7 @@ mako
 man
 mariadb-libs
 mise
+modrinth-app
 mpv
 nautilus
 gnome-disk-utility
