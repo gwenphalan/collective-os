@@ -19,7 +19,6 @@ cups
 cups-browsed
 cups-filters
 cups-pdf
-davinci-resolve
 docker
 docker-buildx
 docker-compose
