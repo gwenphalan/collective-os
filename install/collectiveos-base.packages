@@ -11,7 +11,7 @@ blender
 blueberry
 brightnessctl
 btop
-cargo
+rust
 cider
 clang
 code
@@ -69,13 +69,13 @@ less
 libsecret
 libyaml
 libqalculate
-libreoffice
+libreoffice-fresh
 libresprite
 llvm
 localsend
 luarocks
 mako
-man
+man-db
 mariadb-libs
 mise
 modrinth-app
