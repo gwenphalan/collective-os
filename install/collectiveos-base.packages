@@ -1,8 +1,6 @@
 # CollectiveOS core package list installed via install/packaging/base.sh
 # This file is also used by the ISO builder when determining needs
 
-1password-beta
-1password-cli
 aether
 alacritty
 asdcontrol
@@ -13,6 +11,7 @@ blueberry
 brightnessctl
 btop
 cargo
+cider
 clang
 cups
 cups-browsed
@@ -93,6 +92,10 @@ plocate
 plymouth
 polkit-gnome
 postgresql-libs
+proton-authenticator-bin
+proton-mail-bin
+proton-pass-bin
+proton-vpn-gtk-app
 power-profiles-daemon
 python-gobject
 python-poetry-core
@@ -103,7 +106,6 @@ satty
 sddm
 signal-desktop
 slurp
-spotify
 starship
 sushi
 swaybg
@@ -135,4 +137,5 @@ xmlstarlet
 xournalpp
 yaru-icon-theme
 yay
+zen-browser-bin
 zoxide

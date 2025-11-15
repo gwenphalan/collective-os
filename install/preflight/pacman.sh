@@ -9,6 +9,9 @@ if [[ -n ${COLLECTIVEOS_ONLINE_INSTALL:-} ]]; then
   sudo pacman-key --recv-keys 40DFB630FF42BCFFB047046CF0134EE680CAC571 --keyserver keys.openpgp.org
   sudo pacman-key --lsign-key 40DFB630FF42BCFFB047046CF0134EE680CAC571
 
+  curl -s https://repo.cider.sh/ARCH-GPG-KEY | sudo pacman-key --add -
+  sudo pacman-key --lsign-key A0CD6B993438E22634450CDD2A236C3F42A61682
+
   sudo pacman -Sy
   sudo pacman -S --noconfirm --needed collectiveos-keyring
 

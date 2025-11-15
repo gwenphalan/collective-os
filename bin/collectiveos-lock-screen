@@ -3,9 +3,9 @@
 # Lock the screen
 pidof hyprlock || hyprlock &
 
-# Ensure 1password is locked
-if pgrep -x "1password" >/dev/null; then
-  1password --lock &
+# Ensure Proton Pass is locked
+if command -v proton-pass >/dev/null && pgrep -x "proton-pass" >/dev/null; then
+  proton-pass --lock >/dev/null 2>&1 || true
 fi
 
 # Avoid running screensaver when locked

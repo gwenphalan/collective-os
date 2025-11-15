@@ -218,7 +218,7 @@
         "exec": "echo ; echo show app menu",
         "on-click": "wofi --show drun",
         "on-click-right": "wbarconfgen.sh p",
-        "on-click-middle": "sleep 0.1 && quickapps.sh kitty firefox spotify code dolphin",
+        "on-click-middle": "sleep 0.1 && quickapps.sh kitty firefox cider code dolphin",
         "interval" : 86400,
         "tooltip": true
     },
@@ -274,16 +274,16 @@
 		}
 	},
 
-    "custom/spotify": {
-        "exec": "mediaplayer.py --player spotify",
-        "format": " {}",
+    "custom/cider": {
+        "exec": "mediaplayer.py --player cider",
+        "format": "󰄛 {}",
         "rotate": 0,
         "return-type": "json",
-        "on-click": "playerctl play-pause --player spotify",
-        "on-click-right": "playerctl next --player spotify",
-        "on-click-middle": "playerctl previous --player spotify",
-        "on-scroll-up": "volumecontrol.sh -p spotify i",
-        "on-scroll-down": "volumecontrol.sh -p spotify d",
+        "on-click": "playerctl play-pause --player cider",
+        "on-click-right": "playerctl next --player cider",
+        "on-click-middle": "playerctl previous --player cider",
+        "on-scroll-up": "volumecontrol.sh -p cider i",
+        "on-scroll-down": "volumecontrol.sh -p cider d",
         "max-length": 25,
         "escape": true,
         "tooltip": true

@@ -1,3 +1,3 @@
-echo "Adding gnome-keyring to make 1password work with 2FA codes"
+echo "Adding gnome-keyring to make Proton Pass work with stored secrets"
 
 collectiveos-pkg-add gnome-keyring

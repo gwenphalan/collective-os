@@ -1,7 +1,7 @@
 echo "Switch select bindings to launch or focus mode"
 
 if [[ -f ~/.config/hypr/bindings.conf ]]; then
-  sed -i '/SUPER, M, Music, exec/ c\bindd = SUPER, M, Music, exec, collectiveos-launch-or-focus spotify' ~/.config/hypr/bindings.conf
+  sed -i '/SUPER, M, Music, exec/ c\bindd = SUPER, M, Music, exec, collectiveos-launch-or-focus cider' ~/.config/hypr/bindings.conf
   sed -i '/SUPER, O, Obsidian, exec/ c\bindd = SUPER, O, Obsidian, exec, collectiveos-launch-or-focus obsidian "uwsm-app -- obsidian -disable-gpu --enable-wayland-ime"' ~/.config/hypr/bindings.conf
 
   sed -i '/SUPER, G, Signal, exec/ c\bindd = SUPER, G, Signal, exec, collectiveos-launch-or-focus signal "uwsm-app -- signal-desktop"' ~/.config/hypr/bindings.conf
