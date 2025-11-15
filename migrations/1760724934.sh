@@ -9,18 +9,18 @@ if ! grep -q "map shift+insert paste_from_clipboard" "$KITTY_CONF"; then
 fi
 
 echo "Update Walker configs"
-omarchy-refresh-walker
+collectiveos-refresh-walker
 
 echo "Copy hooks examples"
-cp -r $OMARCHY_PATH/config/omarchy/* $HOME/.config/omarchy/
+cp -r $COLLECTIVEOS_PATH/config/collectiveos/* $HOME/.config/collectiveos/
 
-echo "Add packages for updated omarchy-cmd-screenshot"
-omarchy-pkg-add grim slurp wayfreeze-git
+echo "Add packages for updated collectiveos-cmd-screenshot"
+collectiveos-pkg-add grim slurp wayfreeze-git
 
 echo "Add nfs support by default to Nautilus"
-omarchy-pkg-add gvfs-nfs
+collectiveos-pkg-add gvfs-nfs
 
 if [ ! -d "$HOME/.config/nvim" ]; then
   echo "Add missing nvim config"
-  omarchy-nvim-setup
+  collectiveos-nvim-setup
 fi

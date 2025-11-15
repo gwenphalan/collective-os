@@ -1,3 +1,3 @@
-echo "Use new Omarchy mirror as default"
+echo "Use new CollectiveOS mirror as default"
 
-omarchy-refresh-pacman-mirrorlist
+collectiveos-refresh-pacman-mirrorlist

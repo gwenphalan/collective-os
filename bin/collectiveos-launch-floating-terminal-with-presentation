@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cmd="$*"
+exec setsid uwsm-app -- xdg-terminal-exec --app-id=com.collectiveos.CollectiveOS --title=CollectiveOS -e bash -c "collectiveos-show-logo; $cmd; collectiveos-show-done"

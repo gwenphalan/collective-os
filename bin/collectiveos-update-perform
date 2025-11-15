@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+collectiveos-update-time
+collectiveos-update-keyring
+collectiveos-update-available-reset
+collectiveos-update-system-pkgs
+collectiveos-migrate
+collectiveos-hook post-update
+collectiveos-update-restart

@@ -1,4 +1,4 @@
-echo "Update and restart Walker to resolve stuck Omarchy menu"
+echo "Update and restart Walker to resolve stuck CollectiveOS menu"
 
 sudo pacman -Syu --noconfirm walker-bin
-omarchy-restart-walker
+collectiveos-restart-walker

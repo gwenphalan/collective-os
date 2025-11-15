@@ -1,3 +1,3 @@
-echo "Install Aether for Omarchy theme creation"
+echo "Install Aether for CollectiveOS theme creation"
 
-omarchy-pkg-add aether
+collectiveos-pkg-add aether

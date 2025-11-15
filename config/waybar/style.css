@@ -1,83 +1,502 @@
-@import "../omarchy/current/theme/waybar.css";
+@import "../collectiveos/current/theme/waybar.css";
+
+/* Active CollectiveOS themes expose core Waybar colors (@background, @foreground).
+ * The roles below derive additional shades directly from those exports so they
+ * follow whichever theme is selected without reading Hyprland config files.
+ * - @define-color accent mix(@foreground, @background, 0.55);
+ * - @define-color accent-strong mix(@foreground, #ffffff, 0.25);
+ * - @define-color accent-pop mix(@foreground, #ffffff, 0.45);
+ * - @define-color accent-muted mix(@foreground, @background, 0.35);
+ * - @define-color muted alpha(@foreground, 0.65);
+ * - @define-color subtle alpha(@foreground, 0.35);
+ * - @define-color panel-border alpha(@foreground, 0.25);
+ * - @define-color chip-bg mix(@background, alpha(@foreground, 0.15), 0.7);
+ * - @define-color status-good mix(@accent-pop, #ffffff, 0.35);
+ * - @define-color status-warn mix(@accent-pop, #000000, 0.2);
+ * - @define-color status-crit mix(@accent-pop, @background, 0.35);
+ */
+@define-color accent mix(@foreground, @background, 0.55);
+@define-color accent-strong mix(@foreground, #ffffff, 0.25);
+@define-color accent-pop mix(@foreground, #ffffff, 0.45);
+@define-color accent-muted mix(@foreground, @background, 0.35);
+@define-color muted alpha(@foreground, 0.65);
+@define-color subtle alpha(@foreground, 0.35);
+@define-color panel-border alpha(@foreground, 0.25);
+@define-color chip-bg mix(@background, alpha(@foreground, 0.15), 0.7);
+@define-color status-good mix(@accent-pop, #ffffff, 0.35);
+@define-color status-warn mix(@accent-pop, #000000, 0.2);
+@define-color status-crit mix(@accent-pop, @background, 0.35);
 
 * {
-  background-color: @background;
-  color: @foreground;
-
-  border: none;
-  border-radius: 0;
-  min-height: 0;
-  font-family: 'CaskaydiaMono Nerd Font';
-  font-size: 12px;
+    font-family: "JetBrains Mono Nerd Font";
+    /*font-family: "JetBrainsMono Nerd Font";*/
+    font-weight: bold; 
+    font-size: 15px;
 }
 
-.modules-left {
-  margin-left: 8px;
+#custom-notification {
+  font-family: "JetBrains Mono Nerd Font";
+  font-size: 17px;
+  color: @accent-pop;
+  margin: 2px 0px 0px 0px;
 }
 
-.modules-right {
-  margin-right: 8px;
+window#waybar {
+    background: @background; 
+  /*  border-radius: 15px; */
+ /*  border: 2px solid #124323; */
+/* border: 0px solid #A1BDCE; */
+ border: 3px solid @panel-border;
+ border-radius: 10px;
+ transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-#workspaces button {
-  all: initial;
-  padding: 0 6px;
-  margin: 0 1.5px;
-  min-width: 9px;
+window#waybar:hover {
+    border-color: @accent;
+    box-shadow: 0 0 12px alpha(@accent, 0.35);
 }
 
-#workspaces button.empty {
-  opacity: 0.5;
-}
-
-#cpu,
-#battery,
-#pulseaudio,
-#custom-omarchy,
-#custom-screenrecording-indicator,
-#custom-update {
-  min-width: 12px;
-  margin: 0 7.5px;
-}
-
-#tray {
-  margin-right: 16px;
-}
-
-#bluetooth {
-  margin-right: 17px;
-}
-
-#network {
-  margin-right: 13px;
-}
-
-#custom-expand-icon {
-  margin-right: 20px;
-}
 
 tooltip {
-  padding: 2px;
+        background: @background;
+        color: @foreground;
+        font-size: 13px;
+        border-radius: 7px;
+       border: 2px solid @panel-border;
+
+
+    }
+calendar {
+    padding: 6px;
+    border-radius: 6px;
+    color: @muted;
+    background: transparent;
 }
 
-#custom-update {
-  font-size: 10px;
+calendar * {
+    border-radius: 4px;
+    padding: 2px 4px;
 }
 
-#clock {
-  margin-left: 8.75px;
+/* Today highlight (GTK Calendar marks the day button with .today) */
+calendar button.today,
+calendar button.today:focus,
+calendar button.today:checked,
+calendar .today,
+calendar:selected,
+calendar .selected {
+    background: alpha(@foreground, 0.25);
+    color: @foreground;
+    font-weight: 800;
+    box-shadow: 0 0 0 1px alpha(@foreground, 0.45);
 }
 
-.hidden {
-  opacity: 0;
+/* Out-of-month days */
+calendar button.other-month,
+calendar .other-month,
+calendar:indeterminate {
+    color: @subtle;
+    background: transparent;
+}
+#workspaces{
+background: transparent;
+    color: @muted;
+    box-shadow: none;
+	text-shadow: none;
+    border-radius: 9px;
+    transition: 0.2s ease;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 1px;
 }
 
-#custom-screenrecording-indicator {
-  min-width: 12px;
-  margin-left: 8.75px;
-  font-size: 10px;
+
+#workspaces button {
+background: transparent;
+    color: @accent;
+    box-shadow: none;
+	text-shadow: none;
+    border-radius: 9px;
+    transition: 0.2s ease;
+    padding-left: 4px;
+    padding-right: 4px;
+ /*   animation: ws_normal 20s ease-in-out 1; */
 }
 
-#custom-screenrecording-indicator.active {
-  color: #a55555;
+
+
+#workspaces button.active {
+
+ 
+  /* background-image: url("/home/anik/Documents/bar1.png");*/
+    color: @foreground;   
+    transition: all 0.3s ease;
+    padding-left: 4px;
+    padding-right: 4px;
+  /*  transition: all 0.4s cubic-bezier(.55,0.68,.48,1.682); */
+}
+
+#workspaces button:hover {
+    background: none;
+    color: @accent-strong;
+    animation: ws_hover 20s ease-in-out 1;
+    transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.682);
+}
+
+/* Taskbar colors now derive from the active theme (previous @wb-* vars were undefined). */
+#taskbar button {
+    box-shadow: none;
+	text-shadow: none;
+	font-size: 4px;
+    padding: 0px;
+    border-radius: 9px;
+    margin-bottom: 3px;
+    margin-left: 0px;
+    padding-left: 3px;
+    padding-right: 3px;
+    margin-right: 0px;
+    color: @muted;
+    animation: tb_normal 20s ease-in-out 1;
+}
+
+#taskbar button.active {
+    background: alpha(@accent, 0.18);
+    color: @accent-pop;
+    margin-left: 3px;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-right: 3px;
+    animation: tb_active 20s ease-in-out 1;
+    transition: all 0.4s cubic-bezier(.55,-0.68,.48,1.682);
+    min-height: 9px; 
+}
+
+#taskbar button:hover {
+    background: alpha(@accent, 0.15);
+    color: @accent-pop;
+    animation: tb_hover 20s ease-in-out 1;
+    transition: all 0.3s cubic-bezier(.55,-0.68,.48,1.682);
+}
+
+#tray menu * {
+    min-height: 16px;
+    font-weight: bold;
+    font-size: 13px;
+    color: @foreground;
+}
+
+#tray menu separator {
+    min-height: 10px
+}
+
+
+#custom-spacer{
+opacity: 0.0;
+}
+#custom-smallspacer{
+opacity: 0.0;
+}
+
+
+#custom-mouse{
+font-size: 14px;
+margin-bottom: 6px;
+background:  @chip-bg;
+color: @accent-muted;
+}
+
+
+#custom-power{
+    font-size: 15px;
+    color: @accent-pop;
+    background:  mix(@background, @accent, 0.3);
+    margin: 6px 0px 6px 0px;
+    padding-left: 4px;
+    padding-right: 4px;
+    }
+
+#backlight{
+    color: @accent-pop;
+    background: transparent;
+    font-weight: normal;
+    font-size: 19px;
+    margin: 1px 0px 0px 0px;
+    padding-left: 0px;
+    padding-right: 2px;
+ 
+}
+#bluetooth,
+#custom-cliphist{
+    color: @accent-pop;
+    background:  @chip-bg;
+    opacity: 1;
+    margin: 4px 0px 4px 0px;
+    padding-left: 4px;
+    padding-right: 4px;
+ 
+}
+#battery{
+    font-weight: normal;
+    font-size: 22px;
+    color: @status-good;
+    background:  transparent;
+    opacity: 1;
+    margin: 0px 0px 0px 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+ 
+}
+
+#idle_inhibitor{
+color: @accent;
+background: alpha(@accent, 0.1);
+    opacity: 1;
+    margin: 4px 0px 4px 0px;
+    padding-left: 4px;
+    padding-right: 4px;
+
+}
+#clock{
+    color: @accent-pop;
+    font-size: 15px;
+    font-weight: 900;
+    font-family: "JetBrains Mono Nerd Font";
+    background: transparent;
+    opacity: 1;
+    margin: 0px 0px 0px 0px;
+    padding-left: 10px;
+    padding-right: 0px;
+    border: none;
+    
+}
+#pulseaudio{
+font-weight: normal;
+font-size: 18px;
+color: @accent-pop;
+    background:  transparent;
+    opacity: 1;
+    margin: 0px 8px 0px 0px;
+    padding-left: 5px;
+    padding-right: 6px;
+}
+#cpu{
+font-weight: normal;
+font-size: 22px;
+color: @accent-pop;
+margin: -5px -5px 0px 1.5px;
+padding: 0px;
+}
+#custom-led{
+background: alpha(@accent, 0.12);
+color: @foreground;
+border: 1px solid alpha(@accent, 0.35);
+margin-top: 7px;
+margin-bottom: 7px;
+padding-left: 6px;
+border-radius: 7px;
+margin-right: 6px;
+}
+#custom-gpuinfo,
+#custom-keybindhint,
+#language,
+#memory{
+font-weight: normal;
+font-size: 22px;
+color: @accent-strong;
+margin: -5px -3px 0px -3.5px;
+padding: 0px;
+}
+
+#memory {
+  padding-left: 4px;
+}
+#mpris{
+color: @foreground;
+animation: repeat;
+	animation-name: blink;
+	animation-duration: 3s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#mpris.paused {
+    animation: none;
+    color: @muted;
+}
+
+@keyframes blink {
+    to {
+        color: @muted;
+        
+    }
+}
+
+#network{
+color: @accent-strong;
+font-weight: normal;
+font-size: 19px;
+padding-right: 0px;
+padding-left: 4px
+}
+#custom-notifications,
+#custom-spotify,
+#taskbar,
+#custom-theme{
+color: @accent-muted;
+background:  transparent;
+margin: 0px 0px 0px 0px;
+    padding-left: 1px;
+    padding-right: 1px;
+    opacity: 0.1
+}
+#custom-menu{
+color: @accent-pop;
+background:  transparent;
+margin: 0px 0px 0px 0px;
+    padding-left: 1px;
+    padding-right: 1px;
+    opacity: 1.0;
+    font-size: 18px;
+    font-weight: 900;
+}
+#tray,
+#custom-updates,
+#custom-wallchange,
+#custom-wbar,
+#window{
+color: @foreground;
+font-family: "Martian Mono";
+}
+#custom-l_end,
+#custom-r_end,
+#custom-sl_end,
+#custom-sr_end,
+#custom-rl_end,
+#cava,
+#upower#headset,
+#upower{
+color: @accent-strong;
+}
+#mpris{
+font-size: 15px;
+font-weight: bold;
+}
+#custom-rr_end {
+font-weight: normal;
+    color: @accent-muted;
+    background:  transparent;
+    opacity: 1;
+    margin: 0px 0px 0px 0px;
+    padding-left: 4px;
+    padding-right: 4px;
+    
+}
+
+#pulseaudio-slider {
+  margin: 0 7px 0 2px;
+  padding: 0 0 0 8px;
+  transition: margin 120ms ease, padding 120ms ease;
+}
+
+#pulseaudio-slider:not(.hidden) {
+  margin-left: 1px;
+  padding-left: 6px;
+}
+
+#backlight-slider slider,
+#pulseaudio-slider slider {
+  background: @accent-strong;
+  background-color: @accent-strong;
+  border: none;
+  border-radius: 50%;
+  box-shadow: none;
+  margin: -3px 0;
+  min-height: 16px;
+  min-width: 16px;
+  /* Negative margin keeps the circular knob centered on the trough */
+}
+
+#backlight-slider trough,
+#pulseaudio-slider trough {
+  margin-top: -2px;
+  min-width: 110px;
+  min-height: 12px;
+  margin-bottom: -2px;
+  border-radius: 8px;
+  background: mix(@background, @foreground, 0.1);
+}
+
+#backlight-slider highlight,
+#pulseaudio-slider highlight {
+  border-radius: 8px;
+  background-color: @accent;
+}
+
+#battery.charging,
+#battery.plugged {
+	color: @status-good;
+}
+
+#battery.warning:not(.charging) {
+    color: @status-warn;
+}
+
+#battery.critical:not(.charging) {
+    color: @status-crit;
+}
+
+
+#taskbar {
+    padding: 1px;
+}
+
+#custom-r_end {
+    border-radius: 0px 7px 7px 0px;
+    margin-right: 1px;
+    padding-right: 3px;
+}
+
+#custom-l_end {
+    border-radius: 7px 0px 0px 7px;
+    margin-left: 1px;
+    padding-left: 3px;
+}
+
+#custom-sr_end {
+    border-radius: 0px;
+    margin-right: 1px;
+    padding-right: 3px;
+}
+
+#custom-sl_end {
+    border-radius: 0px;
+    margin-left: 1px;
+    padding-left: 3px;
+}
+
+#custom-rr_end {
+    border-radius: 0px 7px 7px 0px;
+    margin-right: 1px;
+    padding-right: 3px;
+}
+
+#custom-rl_end {
+    border-radius: 7px 0px 0px 7px;
+    margin-left: 1px;
+    padding-left: 3px;
+}
+
+
+/* Style for launchers */
+
+#custom-expand {
+    min-width: 25px;
+    color: @accent-pop;
+    font-size: 16px;
+}
+
+#group-minimized {
+    border-left: solid;
+    border-left-width: 0.5px;
 }

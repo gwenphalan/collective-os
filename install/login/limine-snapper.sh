@@ -1,7 +1,7 @@
 if command -v limine &>/dev/null; then
   sudo pacman -S --noconfirm --needed limine-snapper-sync limine-mkinitcpio-hook
 
-  sudo tee /etc/mkinitcpio.conf.d/omarchy_hooks.conf <<EOF >/dev/null
+  sudo tee /etc/mkinitcpio.conf.d/collectiveos_hooks.conf <<EOF >/dev/null
 HOOKS=(base udev plymouth keyboard autodetect microcode modconf kms keymap consolefont block encrypt filesystems fsck btrfs-overlayfs)
 EOF
 
@@ -28,7 +28,7 @@ EOF
   CMDLINE=$(grep "^[[:space:]]*cmdline:" "$limine_config" | head -1 | sed 's/^[[:space:]]*cmdline:[[:space:]]*//')
 
   sudo tee /etc/default/limine <<EOF >/dev/null
-TARGET_OS_NAME="Omarchy"
+TARGET_OS_NAME="CollectiveOS"
 
 ESP_PATH="/boot"
 
@@ -36,7 +36,7 @@ KERNEL_CMDLINE[default]="$CMDLINE"
 KERNEL_CMDLINE[default]+="quiet splash"
 
 ENABLE_UKI=yes
-CUSTOM_UKI_NAME="omarchy"
+CUSTOM_UKI_NAME="collectiveos"
 
 ENABLE_LIMINE_FALLBACK=yes
 
@@ -60,7 +60,7 @@ EOF
 ### Read more at config document: https://github.com/limine-bootloader/limine/blob/trunk/CONFIG.md
 #timeout: 3
 default_entry: 2
-interface_branding: Omarchy Bootloader
+interface_branding: CollectiveOS Bootloader
 interface_branding_color: 2
 hash_mismatch_panic: no
 
@@ -85,7 +85,7 @@ EOF
 
 
   # Match Snapper configs if not installing from the ISO
-  if [[ -z ${OMARCHY_CHROOT_INSTALL:-} ]]; then
+  if [[ -z ${COLLECTIVEOS_CHROOT_INSTALL:-} ]]; then
     if ! sudo snapper list-configs 2>/dev/null | grep -q "root"; then
       sudo snapper -c root create-config /
     fi
@@ -130,13 +130,13 @@ fi
 #   ! cat /sys/class/dmi/id/bios_vendor 2>/dev/null | grep -qi "American Megatrends" &&
 #   ! cat /sys/class/dmi/id/bios_vendor 2>/dev/null | grep -qi "Apple"; then
 #
-#   uki_file=$(find /boot/EFI/Linux/ -name "omarchy*.efi" -printf "%f\n" 2>/dev/null | head -1)
+#   uki_file=$(find /boot/EFI/Linux/ -name "collectiveos*.efi" -printf "%f\n" 2>/dev/null | head -1)
 #
 #   if [[ -n "$uki_file" ]]; then
 #     sudo efibootmgr --create \
 #       --disk "$(findmnt -n -o SOURCE /boot | sed 's/p\?[0-9]*$//')" \
 #       --part "$(findmnt -n -o SOURCE /boot | grep -o 'p\?[0-9]*$' | sed 's/^p//')" \
-#       --label "Omarchy" \
+#       --label "CollectiveOS" \
 #       --loader "\\EFI\\Linux\\$uki_file"
 #   fi
 # fi

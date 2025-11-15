@@ -1,0 +1,3 @@
+#!/bin/bash
+
+collectiveos-restart-app hypridle

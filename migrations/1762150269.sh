@@ -1,2 +1,2 @@
-echo "Install omarchy-walker meta package"
-omarchy-pkg-add omarchy-walker
+echo "Install collectiveos-walker meta package"
+collectiveos-pkg-add collectiveos-walker

@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -e
+
+if [ "$EUID" -eq 0 ]; then
+  echo "Error: This script should not be run as root"
+  exit 1
+fi
+
+echo -e "This will reinstall all the default CollectiveOS packages and reset all default configs.\nWarning: All changes to configs will be lost.\n"
+
+if gum confirm "Are you sure you want to reinstall and lose all config changes?"; then
+  echo "Resetting CollectiveOS repository"
+  git clone "https://github.com/basecamp/collectiveos.git" ~/.local/share/collectiveos-new >/dev/null
+  rm -rf $COLLECTIVEOS_PATH
+  mv ~/.local/share/collectiveos-new $COLLECTIVEOS_PATH
+
+  echo "Reinstalling missing CollectiveOS packages"
+  mapfile -t packages < <(grep -v '^#' "$COLLECTIVEOS_PATH/install/collectiveos-base.packages" | grep -v '^$')
+  sudo pacman -Syu --noconfirm --needed "${packages[@]}"
+
+  echo "Resetting all CollectiveOS configs"
+  cp -R ~/.local/share/collectiveos/config/* ~/.config/
+  cp ~/.local/share/collectiveos/default/bashrc ~/.bashrc
+  echo '[[ -f ~/.bashrc ]] && . ~/.bashrc' | tee ~/.bash_profile >/dev/null
+
+  $(bash $COLLECTIVEOS_PATH/install/config/theme.sh)
+  $(bash $COLLECTIVEOS_PATH/install/config/git.sh)
+
+  collectiveos-refresh-limine
+  collectiveos-refresh-plymouth
+  collectiveos-nvim-setup
+fi

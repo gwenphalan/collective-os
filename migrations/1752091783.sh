@@ -1,4 +1,4 @@
 echo "Install Plymouth splash screen"
 
-omarchy-pkg-add uwsm plymouth
-source "$OMARCHY_PATH/install/login/plymouth.sh"
+collectiveos-pkg-add uwsm plymouth
+source "$COLLECTIVEOS_PATH/install/login/plymouth.sh"

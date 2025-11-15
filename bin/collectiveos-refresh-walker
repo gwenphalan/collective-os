@@ -1,0 +1,6 @@
+#!/bin/bash
+
+collectiveos-refresh-config walker/config.toml
+collectiveos-refresh-config elephant/calc.toml
+collectiveos-refresh-config elephant/desktopapplications.toml
+collectiveos-restart-walker

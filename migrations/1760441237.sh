@@ -1,3 +1,3 @@
-echo "Install Omarchy theme on Obsidian vaults"
+echo "Install CollectiveOS theme on Obsidian vaults"
 
-omarchy-theme-set-obsidian
+collectiveos-theme-set-obsidian

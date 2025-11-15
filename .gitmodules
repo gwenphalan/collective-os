@@ -1,0 +1,3 @@
+[submodule "themes/collective-os"]
+	path = themes/collective-os
+	url = https://github.com/gwenphalan/collective-os-theme

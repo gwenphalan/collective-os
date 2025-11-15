@@ -1,4 +1,4 @@
-@import "../../../../../../../.config/omarchy/current/theme/walker.css";
+@import "../../../../../../../.config/collectiveos/current/theme/walker.css";
 
 * {
   all: unset;
@@ -26,6 +26,7 @@ scrollbar {
   background: alpha(@base, 0.95);
   padding: 20px;
   border: 2px solid @border;
+  border-radius: 8px;
 }
 
 .preview-box {

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -e
+
+echo -e "\e[32mUpdate CollectiveOS\e[0m"
+
+git -C $COLLECTIVEOS_PATH pull --autostash
+git -C $COLLECTIVEOS_PATH diff --check || git -C $COLLECTIVEOS_PATH reset --merge

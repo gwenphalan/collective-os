@@ -1,0 +1,7 @@
+#!/bin/bash
+
+collectiveos-refresh-config hypr/autostart.conf
+collectiveos-refresh-config hypr/bindings.conf
+collectiveos-refresh-config hypr/envs.conf
+collectiveos-refresh-config hypr/input.conf
+collectiveos-refresh-config hypr/hyprland.conf

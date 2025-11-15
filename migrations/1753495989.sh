@@ -1,6 +1,6 @@
-echo "Allow updating of timezone by right-clicking on the clock (or running omarchy-cmd-tzupdate)"
+echo "Allow updating of timezone by right-clicking on the clock (or running collectiveos-cmd-tzupdate)"
 
-if omarchy-cmd-missing tzupdate; then
-  bash "$OMARCHY_PATH/install/config/timezones.sh"
-  omarchy-refresh-waybar
+if collectiveos-cmd-missing tzupdate; then
+  bash "$COLLECTIVEOS_PATH/install/config/timezones.sh"
+  collectiveos-refresh-waybar
 fi

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+collectiveos-refresh-config swayosd/config.toml
+collectiveos-refresh-config swayosd/style.css
+collectiveos-restart-swayosd

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+collectiveos-refresh-config hypr/hypridle.conf
+collectiveos-restart-hypridle

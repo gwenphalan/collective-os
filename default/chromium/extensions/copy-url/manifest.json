@@ -2,7 +2,7 @@
   "manifest_version": 4,
   "name": "Copy URL",
   "version": "1.0",
-  "description": "Copy current URL to clipboard, this extension is installed by Omarchy",
+  "description": "Copy current URL to clipboard, this extension is installed by CollectiveOS",
   "permissions": ["activeTab", "scripting", "notifications"],
   "icons": {
     "16": "icon.png",

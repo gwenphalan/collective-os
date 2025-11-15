@@ -1,0 +1,14 @@
+#!/bin/bash
+
+collectiveos-refresh-config waybar/config.jsonc
+collectiveos-refresh-config waybar/style.css
+
+# Keep bundled Waybar helper scripts in sync
+scripts_src="$HOME/.local/share/collectiveos/config/waybar/scripts"
+scripts_dst="$HOME/.config/waybar/scripts"
+if [ -d "$scripts_src" ]; then
+  mkdir -p "$scripts_dst"
+  cp -a "$scripts_src/." "$scripts_dst/"
+fi
+
+collectiveos-restart-waybar

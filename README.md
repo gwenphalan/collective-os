@@ -1,9 +1,8 @@
-# Omarchy
+# CollectiveOS
 
-Omarchy is a beautiful, modern & opinionated Linux distribution by DHH.
-
-Read more at [omarchy.org](https://omarchy.org).
+CollectiveOS is a fork of [Omarchy](https://github.com/basecamp/omarchy).
+Read more at [omarchy.org](https://omarchy.org/).
 
 ## License
 
-Omarchy is released under the [MIT License](https://opensource.org/licenses/MIT).
+CollectiveOS is released under the [MIT License](https://github.com/gwenphalan/collective-os/blob/master/LICENSE).

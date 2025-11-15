@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+FIRST_RUN_MODE=~/.local/state/collectiveos/first-run.mode
+
+if [[ -f "$FIRST_RUN_MODE" ]]; then
+  rm -f "$FIRST_RUN_MODE"
+
+  bash "$COLLECTIVEOS_PATH/install/first-run/battery-monitor.sh"
+  bash "$COLLECTIVEOS_PATH/install/first-run/cleanup-reboot-sudoers.sh"
+  bash "$COLLECTIVEOS_PATH/install/first-run/firewall.sh"
+  bash "$COLLECTIVEOS_PATH/install/first-run/dns-resolver.sh"
+  bash "$COLLECTIVEOS_PATH/install/first-run/gnome-theme.sh"
+  sudo rm -f /etc/sudoers.d/first-run
+
+  bash "$COLLECTIVEOS_PATH/install/first-run/welcome.sh"
+  bash "$COLLECTIVEOS_PATH/install/first-run/wifi.sh"
+fi

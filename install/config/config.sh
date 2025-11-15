@@ -1,6 +1,6 @@
-# Copy over Omarchy configs
+# Copy over CollectiveOS configs
 mkdir -p ~/.config
-cp -R ~/.local/share/omarchy/config/* ~/.config/
+cp -R ~/.local/share/collectiveos/config/* ~/.config/
 
-# Use default bashrc from Omarchy
-cp ~/.local/share/omarchy/default/bashrc ~/.bashrc
+# Use default bashrc from CollectiveOS
+cp ~/.local/share/collectiveos/default/bashrc ~/.bashrc

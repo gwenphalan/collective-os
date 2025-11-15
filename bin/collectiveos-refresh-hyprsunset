@@ -1,0 +1,4 @@
+#!/bin/bash
+
+collectiveos-refresh-config hypr/hyprsunset.conf
+collectiveos-restart-hyprsunset

@@ -16,7 +16,7 @@ start_log_output() {
 
     while true; do
       # Read the last N lines into an array
-      mapfile -t current_lines < <(tail -n $log_lines "$OMARCHY_INSTALL_LOG_FILE" 2>/dev/null)
+      mapfile -t current_lines < <(tail -n $log_lines "$COLLECTIVEOS_INSTALL_LOG_FILE" 2>/dev/null)
 
       # Build complete output buffer with escape sequences
       output=""
@@ -53,12 +53,12 @@ stop_log_output() {
 }
 
 start_install_log() {
-  sudo touch "$OMARCHY_INSTALL_LOG_FILE"
-  sudo chmod 666 "$OMARCHY_INSTALL_LOG_FILE"
+  sudo touch "$COLLECTIVEOS_INSTALL_LOG_FILE"
+  sudo chmod 666 "$COLLECTIVEOS_INSTALL_LOG_FILE"
 
-  export OMARCHY_START_TIME=$(date '+%Y-%m-%d %H:%M:%S')
+  export COLLECTIVEOS_START_TIME=$(date '+%Y-%m-%d %H:%M:%S')
 
-  echo "=== Omarchy Installation Started: $OMARCHY_START_TIME ===" >>"$OMARCHY_INSTALL_LOG_FILE"
+  echo "=== CollectiveOS Installation Started: $COLLECTIVEOS_START_TIME ===" >>"$COLLECTIVEOS_INSTALL_LOG_FILE"
   start_log_output
 }
 
@@ -66,11 +66,11 @@ stop_install_log() {
   stop_log_output
   show_cursor
 
-  if [[ -n ${OMARCHY_INSTALL_LOG_FILE:-} ]]; then
-    OMARCHY_END_TIME=$(date '+%Y-%m-%d %H:%M:%S')
-    echo "=== Omarchy Installation Completed: $OMARCHY_END_TIME ===" >>"$OMARCHY_INSTALL_LOG_FILE"
-    echo "" >>"$OMARCHY_INSTALL_LOG_FILE"
-    echo "=== Installation Time Summary ===" >>"$OMARCHY_INSTALL_LOG_FILE"
+  if [[ -n ${COLLECTIVEOS_INSTALL_LOG_FILE:-} ]]; then
+    COLLECTIVEOS_END_TIME=$(date '+%Y-%m-%d %H:%M:%S')
+    echo "=== CollectiveOS Installation Completed: $COLLECTIVEOS_END_TIME ===" >>"$COLLECTIVEOS_INSTALL_LOG_FILE"
+    echo "" >>"$COLLECTIVEOS_INSTALL_LOG_FILE"
+    echo "=== Installation Time Summary ===" >>"$COLLECTIVEOS_INSTALL_LOG_FILE"
 
     if [ -f "/var/log/archinstall/install.log" ]; then
       ARCHINSTALL_START=$(grep -m1 '^\[' /var/log/archinstall/install.log 2>/dev/null | sed 's/^\[\([^]]*\)\].*/\1/' || true)
@@ -84,30 +84,30 @@ stop_install_log() {
         ARCH_MINS=$((ARCH_DURATION / 60))
         ARCH_SECS=$((ARCH_DURATION % 60))
 
-        echo "Archinstall: ${ARCH_MINS}m ${ARCH_SECS}s" >>"$OMARCHY_INSTALL_LOG_FILE"
+        echo "Archinstall: ${ARCH_MINS}m ${ARCH_SECS}s" >>"$COLLECTIVEOS_INSTALL_LOG_FILE"
       fi
     fi
 
-    if [ -n "$OMARCHY_START_TIME" ]; then
-      OMARCHY_START_EPOCH=$(date -d "$OMARCHY_START_TIME" +%s)
-      OMARCHY_END_EPOCH=$(date -d "$OMARCHY_END_TIME" +%s)
-      OMARCHY_DURATION=$((OMARCHY_END_EPOCH - OMARCHY_START_EPOCH))
+    if [ -n "$COLLECTIVEOS_START_TIME" ]; then
+      COLLECTIVEOS_START_EPOCH=$(date -d "$COLLECTIVEOS_START_TIME" +%s)
+      COLLECTIVEOS_END_EPOCH=$(date -d "$COLLECTIVEOS_END_TIME" +%s)
+      COLLECTIVEOS_DURATION=$((COLLECTIVEOS_END_EPOCH - COLLECTIVEOS_START_EPOCH))
 
-      OMARCHY_MINS=$((OMARCHY_DURATION / 60))
-      OMARCHY_SECS=$((OMARCHY_DURATION % 60))
+      COLLECTIVEOS_MINS=$((COLLECTIVEOS_DURATION / 60))
+      COLLECTIVEOS_SECS=$((COLLECTIVEOS_DURATION % 60))
 
-      echo "Omarchy:     ${OMARCHY_MINS}m ${OMARCHY_SECS}s" >>"$OMARCHY_INSTALL_LOG_FILE"
+      echo "CollectiveOS:     ${COLLECTIVEOS_MINS}m ${COLLECTIVEOS_SECS}s" >>"$COLLECTIVEOS_INSTALL_LOG_FILE"
 
       if [ -n "$ARCH_DURATION" ]; then
-        TOTAL_DURATION=$((ARCH_DURATION + OMARCHY_DURATION))
+        TOTAL_DURATION=$((ARCH_DURATION + COLLECTIVEOS_DURATION))
         TOTAL_MINS=$((TOTAL_DURATION / 60))
         TOTAL_SECS=$((TOTAL_DURATION % 60))
-        echo "Total:       ${TOTAL_MINS}m ${TOTAL_SECS}s" >>"$OMARCHY_INSTALL_LOG_FILE"
+        echo "Total:       ${TOTAL_MINS}m ${TOTAL_SECS}s" >>"$COLLECTIVEOS_INSTALL_LOG_FILE"
       fi
     fi
-    echo "=================================" >>"$OMARCHY_INSTALL_LOG_FILE"
+    echo "=================================" >>"$COLLECTIVEOS_INSTALL_LOG_FILE"
 
-    echo "Rebooting system..." >>"$OMARCHY_INSTALL_LOG_FILE"
+    echo "Rebooting system..." >>"$COLLECTIVEOS_INSTALL_LOG_FILE"
   fi
 }
 
@@ -116,18 +116,18 @@ run_logged() {
 
   export CURRENT_SCRIPT="$script"
 
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting: $script" >>"$OMARCHY_INSTALL_LOG_FILE"
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting: $script" >>"$COLLECTIVEOS_INSTALL_LOG_FILE"
 
   # Use bash -c to create a clean subshell
-  bash -c "source '$script'" </dev/null >>"$OMARCHY_INSTALL_LOG_FILE" 2>&1
+  bash -c "source '$script'" </dev/null >>"$COLLECTIVEOS_INSTALL_LOG_FILE" 2>&1
 
   local exit_code=$?
 
   if [ $exit_code -eq 0 ]; then
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] Completed: $script" >>"$OMARCHY_INSTALL_LOG_FILE"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] Completed: $script" >>"$COLLECTIVEOS_INSTALL_LOG_FILE"
     unset CURRENT_SCRIPT
   else
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] Failed: $script (exit code: $exit_code)" >>"$OMARCHY_INSTALL_LOG_FILE"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] Failed: $script (exit code: $exit_code)" >>"$COLLECTIVEOS_INSTALL_LOG_FILE"
   fi
 
   return $exit_code

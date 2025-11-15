@@ -3,16 +3,16 @@
 # Exit immediately if a command exits with a non-zero status
 set -eEo pipefail
 
-# Define Omarchy locations
-export OMARCHY_PATH="$HOME/.local/share/omarchy"
-export OMARCHY_INSTALL="$OMARCHY_PATH/install"
-export OMARCHY_INSTALL_LOG_FILE="/var/log/omarchy-install.log"
-export PATH="$OMARCHY_PATH/bin:$PATH"
+# Define CollectiveOS locations
+export COLLECTIVEOS_PATH="$HOME/.local/share/collectiveos"
+export COLLECTIVEOS_INSTALL="$COLLECTIVEOS_PATH/install"
+export COLLECTIVEOS_INSTALL_LOG_FILE="/var/log/collectiveos-install.log"
+export PATH="$COLLECTIVEOS_PATH/bin:$PATH"
 
 # Install
-source "$OMARCHY_INSTALL/helpers/all.sh"
-source "$OMARCHY_INSTALL/preflight/all.sh"
-source "$OMARCHY_INSTALL/packaging/all.sh"
-source "$OMARCHY_INSTALL/config/all.sh"
-source "$OMARCHY_INSTALL/login/all.sh"
-source "$OMARCHY_INSTALL/post-install/all.sh"
+source "$COLLECTIVEOS_INSTALL/helpers/all.sh"
+source "$COLLECTIVEOS_INSTALL/preflight/all.sh"
+source "$COLLECTIVEOS_INSTALL/packaging/all.sh"
+source "$COLLECTIVEOS_INSTALL/config/all.sh"
+source "$COLLECTIVEOS_INSTALL/login/all.sh"
+source "$COLLECTIVEOS_INSTALL/post-install/all.sh"
