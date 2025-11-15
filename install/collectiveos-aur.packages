@@ -1,0 +1,5 @@
+# AUR packages that must be prebuilt for offline ISO installs
+modrinth-app
+proton-authenticator-bin
+proton-pass-bin
+qt5-remoteobjects
