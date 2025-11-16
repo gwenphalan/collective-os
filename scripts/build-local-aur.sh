@@ -25,6 +25,7 @@ trap 'rm -rf "$WORKDIR"' EXIT
 
 PKGDEST="$REPO_ROOT/repos/local-aur/x86_64"
 mkdir -p "$PKGDEST"
+OVERRIDES_DIR="$REPO_ROOT/aur-overrides"
 
 sudo pacman -S --needed --noconfirm base-devel git
 
@@ -32,7 +33,14 @@ pushd "$WORKDIR" >/dev/null
 for pkg in "${packages[@]}"; do
   echo "==> Building $pkg"
   rm -rf "$pkg"
-  git clone "https://aur.archlinux.org/${pkg}.git"
+
+  if [[ -d "$OVERRIDES_DIR/$pkg" ]]; then
+    echo "    → Using aur-overrides/$pkg"
+    cp -a "$OVERRIDES_DIR/$pkg" "$pkg"
+  else
+    git clone "https://aur.archlinux.org/${pkg}.git"
+  fi
+
   pushd "$pkg" >/dev/null
   makepkg --syncdeps --clean --force --noconfirm --needed
   mv ./*.pkg.tar.* "$PKGDEST/"
