@@ -29,6 +29,29 @@ OVERRIDES_DIR="$REPO_ROOT/aur-overrides"
 
 sudo pacman -S --needed --noconfirm base-devel git
 
+retry_git_clone() {
+  local url="$1"
+  local dest="$2"
+  local attempts=3
+  local delay=2
+
+  for attempt in $(seq 1 "$attempts"); do
+    if git clone "$url" "$dest"; then
+      return 0
+    fi
+
+    echo "    clone failed (attempt ${attempt}/${attempts}), retrying in ${delay}s..." >&2
+    if (( attempt == attempts )); then
+      break
+    fi
+
+    sleep "$delay"
+    delay=$((delay * 2))
+  done
+
+  return 1
+}
+
 pushd "$WORKDIR" >/dev/null
 for pkg in "${packages[@]}"; do
   echo "==> Building $pkg"
@@ -38,7 +61,10 @@ for pkg in "${packages[@]}"; do
     echo "    → Using aur-overrides/$pkg"
     cp -a "$OVERRIDES_DIR/$pkg" "$pkg"
   else
-    git clone "https://aur.archlinux.org/${pkg}.git"
+    if ! retry_git_clone "https://aur.archlinux.org/${pkg}.git" "$pkg"; then
+      echo "    !! Failed to clone ${pkg} after multiple attempts" >&2
+      exit 1
+    fi
   fi
 
   pushd "$pkg" >/dev/null
