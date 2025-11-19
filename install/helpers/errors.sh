@@ -133,7 +133,7 @@ catch_errors() {
       fi
       ;;
     "Upload log for support")
-      collectiveos-upload-install-log
+      collectiveos-upload-log
       ;;
     "Exit" | "")
       exit 1
