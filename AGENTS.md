@@ -62,6 +62,11 @@ cd ~/.local/share/omarchy
 - Hardware scripts under `install/config/hardware/` tweak power buttons, suspend, NVIDIA/Mac/Suface quirks—alter carefully and test on matching hardware.
 - Migrations and refresh scripts assume Wayland/Hyprland stack; changes can break session startup if configs mismatch installed package versions.
 
+## Debugging Crashes
+- Set `OMARCHY_DEBUG=1` to disable the gum UI, enable bash tracing, and keep output headless-safe; artifacts land in `/tmp/collectiveos-artifacts/`.
+- See `docs/installer-debug.md` for headless/serial QEMU invocation, log locations, and the `install/debug-lite.sh` fast reproduction path.
+- Intended only for debugging crashy installs—do not use for normal user runs.
+
 ## Agent History
 
 # OS0
