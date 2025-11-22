@@ -1,7 +1,12 @@
 abort() {
   echo -e "\e[31mOmarchy install requires: $1\e[0m"
   echo
-  gum confirm "Proceed anyway on your own accord and without assistance?" || exit 1
+  if is_debug_mode; then
+    read -rp "Proceed anyway on your own accord and without assistance? [y/N] " reply
+    [[ "$reply" =~ ^[Yy] ]] || exit 1
+  else
+    gum confirm "Proceed anyway on your own accord and without assistance?" || exit 1
+  fi
 }
 
 # Must be an Arch distro

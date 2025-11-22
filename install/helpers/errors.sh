@@ -28,6 +28,12 @@ show_log_tail() {
     local log_lines=$(($TERM_HEIGHT - $LOGO_HEIGHT - 35))
     local max_line_width=$((LOGO_WIDTH - 4))
 
+    if is_debug_mode; then
+      tail -n ${log_lines:-20} "$OMARCHY_INSTALL_LOG_FILE" || true
+      echo
+      return
+    fi
+
     tail -n $log_lines "$OMARCHY_INSTALL_LOG_FILE" | while IFS= read -r line; do
       if ((${#line} > max_line_width)); then
         local truncated_line="${line:0:$max_line_width}..."
@@ -45,7 +51,11 @@ show_log_tail() {
 # Display the failed command or script name
 show_failed_script_or_command() {
   if [[ -n ${CURRENT_SCRIPT:-} ]]; then
-    gum style "Failed script: $CURRENT_SCRIPT"
+    if is_debug_mode; then
+      echo "Failed script: $CURRENT_SCRIPT"
+    else
+      gum style "Failed script: $CURRENT_SCRIPT"
+    fi
   else
     # Truncate long command lines to fit the display
     local cmd="$BASH_COMMAND"
@@ -55,7 +65,11 @@ show_failed_script_or_command() {
       cmd="${cmd:0:$max_cmd_width}..."
     fi
 
-    gum style "$cmd"
+    if is_debug_mode; then
+      echo "$cmd"
+    else
+      gum style "$cmd"
+    fi
   fi
 }
 
@@ -86,6 +100,20 @@ catch_errors() {
 
   stop_log_output
   restore_outputs
+  collect_install_artifacts || true
+
+  if is_debug_mode; then
+    show_cursor
+    echo "Omarchy installation stopped (exit code $exit_code)"
+    if [[ -f "$OMARCHY_INSTALL_LOG_FILE" ]]; then
+      echo "Log: $OMARCHY_INSTALL_LOG_FILE"
+      tail -n 60 "$OMARCHY_INSTALL_LOG_FILE" || true
+    fi
+    if [[ -n ${OMARCHY_ARTIFACT_DIR:-} ]]; then
+      echo "Artifacts collected in: $OMARCHY_ARTIFACT_DIR"
+    fi
+    exit $exit_code
+  fi
 
   clear_logo
   show_cursor
