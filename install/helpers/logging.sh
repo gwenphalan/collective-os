@@ -151,3 +151,20 @@ run_logged() {
 
   return $exit_code
 }
+
+collect_install_artifacts() {
+  local artifact_dir="/tmp/collectiveos-artifacts"
+  sudo mkdir -p "$artifact_dir"
+  sudo chmod 777 "$artifact_dir"
+
+  local files=("$OMARCHY_INSTALL_LOG_FILE" "/var/log/pacman.log" "/var/log/archinstall/install.log")
+  for file in "${files[@]}"; do
+    if [ -f "$file" ]; then
+      local dest="$artifact_dir/$(basename "$file")"
+      sudo cp "$file" "$dest"
+      sudo chmod 666 "$dest"
+    fi
+  done
+
+  export OMARCHY_ARTIFACT_DIR="$artifact_dir"
+}
