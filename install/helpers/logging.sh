@@ -1,4 +1,15 @@
 start_log_output() {
+  # Debug mode: avoid cursor control; optionally mirror the log to the active TTY
+  if is_debug_mode; then
+    if [ -t 1 ] && [ -w /dev/tty ]; then
+      tail -n 0 -F "$OMARCHY_INSTALL_LOG_FILE" </dev/null >/dev/tty 2>/dev/null &
+      monitor_pid=$!
+    else
+      monitor_pid=
+    fi
+    return
+  fi
+
   local ANSI_SAVE_CURSOR="\033[s"
   local ANSI_RESTORE_CURSOR="\033[u"
   local ANSI_CLEAR_LINE="\033[2K"
@@ -57,6 +68,10 @@ start_install_log() {
   sudo chmod 666 "$OMARCHY_INSTALL_LOG_FILE"
 
   export OMARCHY_START_TIME=$(date '+%Y-%m-%d %H:%M:%S')
+
+  if is_debug_mode; then
+    echo "[OMARCHY_DEBUG] Logging to $OMARCHY_INSTALL_LOG_FILE" >>"$OMARCHY_INSTALL_LOG_FILE"
+  fi
 
   echo "=== Omarchy Installation Started: $OMARCHY_START_TIME ===" >>"$OMARCHY_INSTALL_LOG_FILE"
   start_log_output
@@ -119,7 +134,11 @@ run_logged() {
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting: $script" >>"$OMARCHY_INSTALL_LOG_FILE"
 
   # Use bash -c to create a clean subshell
-  bash -c "source '$script'" </dev/null >>"$OMARCHY_INSTALL_LOG_FILE" 2>&1
+  if is_debug_mode; then
+    bash -c "set -eEo pipefail; set -x; source '$script'" </dev/null >>"$OMARCHY_INSTALL_LOG_FILE" 2>&1
+  else
+    bash -c "source '$script'" </dev/null >>"$OMARCHY_INSTALL_LOG_FILE" 2>&1
+  fi
 
   local exit_code=$?
 

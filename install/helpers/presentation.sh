@@ -1,6 +1,13 @@
-# Ensure we have gum available
-if ! command -v gum &>/dev/null; then
-  sudo pacman -S --needed --noconfirm gum
+# Detect debug/headless mode
+is_debug_mode() {
+  [[ -n "${OMARCHY_DEBUG:-}" && "${OMARCHY_DEBUG}" != "0" ]]
+}
+
+# Ensure we have gum available unless we're in debug mode
+if ! is_debug_mode; then
+  if ! command -v gum &>/dev/null; then
+    sudo pacman -S --needed --noconfirm gum
+  fi
 fi
 
 # Get terminal size from /dev/tty (works in all scenarios: direct, sourced, or piped)
@@ -44,5 +51,14 @@ export GUM_CONFIRM_PADDING="$PADDING"
 
 clear_logo() {
   printf "\033[H\033[2J" # Clear screen and move cursor to top-left
+
+  # In debug mode avoid any gum styling/cursor control side effects
+  if is_debug_mode; then
+    if [ -f "$LOGO_PATH" ]; then
+      cat "$LOGO_PATH"
+    fi
+    return
+  fi
+
   gum style --foreground 2 --padding "1 0 0 $PADDING_LEFT" "$(<"$LOGO_PATH")"
 }
